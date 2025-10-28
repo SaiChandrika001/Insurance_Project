@@ -1,0 +1,35 @@
+package com.example.binding;
+
+
+import java.time.LocalDate;
+
+import com.example.module.Citizens;
+
+import lombok.Data;
+
+@Data
+public class CitizenResponse {
+
+
+//	private Integer id;
+//	
+//	private String fullName;
+//	
+//	private Long phno;
+//	
+//	private String email;
+//	
+//	private String gender;
+//	
+//	private Long ssn;
+//
+//	private LocalDate dob;
+//	
+//	private String stateName;
+//	
+
+    private Citizens citizen;
+    private String status;
+    private String message;
+   
+}

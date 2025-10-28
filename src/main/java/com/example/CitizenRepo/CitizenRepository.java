@@ -1,0 +1,23 @@
+package com.example.CitizenRepo;
+
+
+
+import java.util.Optional;
+
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+import com.example.module.Citizens;
+
+@Repository
+public interface CitizenRepository extends JpaRepository<Citizens, Integer>{
+   
+	 boolean existsBySsn(Long ssn);
+	 
+	    Optional<Citizens> findById(Integer id);
+
+
+}

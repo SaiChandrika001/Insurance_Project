@@ -1,0 +1,21 @@
+package com.example.service;
+
+import java.util.List;
+
+import com.example.binding.CitizenRequest;
+import com.example.binding.CitizenResponse;
+
+public interface CitizenService {
+
+	
+	  CitizenResponse registerCitizen(CitizenRequest request);
+	  
+	   boolean deleteCitizen(Integer id);
+	  
+	   List<CitizenResponse> getAllCitizens();
+	   
+	   public List<CitizenResponse> updateCitizen(CitizenRequest request,Integer id);
+	   
+	   
+	   
+}

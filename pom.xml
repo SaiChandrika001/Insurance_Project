@@ -93,13 +93,8 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
-</dependency>
-
+        
+   
         <!-- Spring Boot Starter Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -126,6 +121,7 @@
             </plugin>
             <!-- Spring Boot Maven plugin -->
             <plugin>
+            
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>

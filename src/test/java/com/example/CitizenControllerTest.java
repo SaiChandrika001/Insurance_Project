@@ -1,18 +1,24 @@
 package com.example;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.binding.CitizenRequest;
@@ -31,6 +37,12 @@ public class CitizenControllerTest {
 
 	    @MockBean
 	    private CitizenService citizenService;
+	    
+	    @Autowired
+	    private CitizenController citizenController;
+	    
+	    private CitizenRequest request;
+
 
 	    @Test
 	    void testRegisterCitizen_Success() throws Exception {
@@ -79,5 +91,72 @@ public class CitizenControllerTest {
 	                .andExpect(jsonPath("$.status", is("FAIL")))
 	                .andExpect(jsonPath("$.message", is("Citizen already registered with this SSN")));
 	    }
+	    
+	    
+	    @Test
+	    void testListAllCitizens() {
+	        // Arrange
+	        List<CitizenResponse> mockList = List.of(new CitizenResponse(), new CitizenResponse());
+	        when(citizenService.getAllCitizens()).thenReturn(mockList);
+
+	        // Act
+	        ResponseEntity<List<CitizenResponse>> result = citizenController.List();
+
+	        // Assert
+	        assertEquals(200, result.getStatusCodeValue());
+	        assertEquals(2, result.getBody().size());
+	        verify(citizenService).getAllCitizens();
+	    
+	    
 	}
+	    
+	    @Test
+	    void testDeleteCitizen_Success() {
+	        when(citizenService.deleteCitizen(1)).thenReturn(true);
+
+	        ResponseEntity<String> result = citizenController.deleteCitizen(1);
+
+	        assertEquals(200, result.getStatusCodeValue());
+	        assertTrue(result.getBody().contains("deleted successfully"));
+	        verify(citizenService, times(1)).deleteCitizen(1);
+	    }
+
+	    @Test
+	    void testDeleteCitizen_NotFound() {
+	        when(citizenService.deleteCitizen(99)).thenReturn(false);
+
+	        ResponseEntity<String> result = citizenController.deleteCitizen(99);
+
+	        assertEquals(404, result.getStatusCodeValue());
+	        assertTrue(result.getBody().contains("not found"));
+	    }
+
+	    @Test
+	    void testUpdateCitizen_Success() {
+	        CitizenResponse updated = new CitizenResponse();
+	        updated.setStatus("SUCCESS");
+	        List<CitizenResponse> mockList = List.of(updated);
+
+	        when(citizenService.updateCitizen(request, 1)).thenReturn(mockList);
+
+	        ResponseEntity<List<CitizenResponse>> result = citizenController.updateCitizen(1, request);
+
+	        assertEquals(200, result.getStatusCodeValue());
+	        assertEquals("SUCCESS", result.getBody().get(0).getStatus());
+	    }
+
+	    @Test
+	    void testUpdateCitizen_Fail() {
+	        CitizenResponse failResponse = new CitizenResponse();
+	        failResponse.setStatus("FAIL");
+	        List<CitizenResponse> failList = List.of(failResponse);
+
+	        when(citizenService.updateCitizen(request, 10)).thenReturn(failList);
+
+	        ResponseEntity<List<CitizenResponse>> result = citizenController.updateCitizen(10, request);
+
+	        assertEquals(404, result.getStatusCodeValue());
+	        assertEquals("FAIL", result.getBody().get(0).getStatus());
+	    }
+}
 

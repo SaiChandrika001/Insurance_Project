@@ -1,0 +1,9 @@
+package in.vtalent;
+
+public class Test {
+	
+	public static void main(String[] args) {
+		System.out.println("Hello all");
+		System.out.println("here you can enter some data");
+	  }
+	}

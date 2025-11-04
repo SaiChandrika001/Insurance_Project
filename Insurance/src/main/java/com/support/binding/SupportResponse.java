@@ -1,0 +1,16 @@
+package com.support.binding;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class SupportResponse {
+	private Long ticketId;
+	private String status;
+	private String message;
+
+
+}

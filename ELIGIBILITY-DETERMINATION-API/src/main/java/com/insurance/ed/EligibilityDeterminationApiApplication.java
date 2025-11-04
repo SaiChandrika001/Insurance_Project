@@ -1,0 +1,15 @@
+package com.insurance.ed;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients
+public class EligibilityDeterminationApiApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EligibilityDeterminationApiApplication.class, args);
+    }
+
+}

@@ -1,9 +1,4 @@
 package com.demo.binding;
-
-
-
-import java.time.LocalDate;
-
 import com.demo.modal.Citizen;
 
 import lombok.AllArgsConstructor;
@@ -24,6 +19,4 @@ public class CitizenResponse {
 	private Citizen citizen;
 	private String Message;
 	
-	
-  	
 }

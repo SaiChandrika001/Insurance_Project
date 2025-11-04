@@ -1,7 +1,5 @@
 package com.demo.service;
 
-
-
 import java.util.List;
 
 import com.demo.binding.CitizenRequest;
@@ -22,4 +20,6 @@ public interface CitizenService {
 	public CitizenResponse getCitizenBySsn(Long ssn);
 	
 	public  CitizenResponse getCitizenById(Integer id);
+	
+
 }

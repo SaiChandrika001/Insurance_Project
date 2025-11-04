@@ -1,10 +1,6 @@
 package com.demo.modal;
 
 import java.time.LocalDate;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,6 +46,10 @@ public class Citizen {
 	
 	@Column(name="Updated_By")
     private String updatedBy;
+
+	private LocalDate createdDate;
+
+	private LocalDate updatedDate;
 	
 	@PrePersist
 	public void onCreate() {
@@ -63,13 +63,9 @@ public class Citizen {
 	    this.updatedBy = "System";
 	}
 	
-	@Column(name = "InsertedTime", updatable = false)
-	@CreationTimestamp
-	private LocalDate createdDate;
-	@UpdateTimestamp
-	@Column(name = "UpdateTime", insertable = false)
-	private LocalDate updatedDate;
 
 	
-	
 }
+
+
+
